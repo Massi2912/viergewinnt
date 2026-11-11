@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vier gewinnt</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <h1 class="title">
+      Vier gewinnt
+    </h1>
+
+    <!-- ===================== STARTMENÜ ===================== -->
+    <section id="menuScreen" class="screen card" aria-label="Startmenü">
+      <!-- Schritt 1: Modus wählen -->
+      <div id="menuMain" class="menu-step">
+      <!-- Deko: Mini-Brett mit Vierergruppe -->
+      <div class="menu-hero" aria-hidden="true">
+        <span class="cell"></span>
+        <span class="cell"></span>
+        <span class="cell"></span>
+        <span class="cell"></span>
+        <span class="cell"><i class="is-yellow" style="--n:13;--r:0"></i></span>
+        <span class="cell win"><i class="is-red" style="--n:14;--r:0"></i></span>
+        <span class="cell"></span>
+        <span class="cell"></span>
+        <span class="cell"></span>
+        <span class="cell"></span>
+        <span class="cell"><i class="is-yellow" style="--n:10;--r:1"></i></span>
+        <span class="cell win"><i class="is-red" style="--n:11;--r:1"></i></span>
+        <span class="cell"><i class="is-yellow" style="--n:12;--r:1"></i></span>
+        <span class="cell"></span>
+        <span class="cell"></span>
+        <span class="cell"></span>
+        <span class="cell"><i class="is-yellow" style="--n:6;--r:2"></i></span>
+        <span class="cell win"><i class="is-red" style="--n:7;--r:2"></i></span>
+        <span class="cell"><i class="is-red" style="--n:8;--r:2"></i></span>
+        <span class="cell"><i class="is-yellow" style="--n:9;--r:2"></i></span>
+        <span class="cell"></span>
+        <span class="cell"></span>
+        <span class="cell"><i class="is-yellow" style="--n:1;--r:3"></i></span>
+        <span class="cell win"><i class="is-red" style="--n:2;--r:3"></i></span>
+        <span class="cell"><i class="is-yellow" style="--n:3;--r:3"></i></span>
+        <span class="cell"><i class="is-red" style="--n:4;--r:3"></i></span>
+        <span class="cell"><i class="is-yellow" style="--n:5;--r:3"></i></span>
+        <span class="cell"></span>
+      </div>
+
+        <h2>Spielmodus wählen</h2>
+        <p class="menu-sub">Wie möchtest du spielen?</p>
+        <div class="mode-list">
+          <button type="button" id="btnModeBot" class="mode-tile primary">
+            <span class="mode-art" aria-hidden="true">
+              <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 5v5"/><circle cx="20" cy="4.5" r="1.5" fill="currentColor"/>
+                <rect x="7" y="10" width="26" height="20" rx="6"/>
+                <circle cx="14.5" cy="19" r="2.5" fill="currentColor" stroke="none"/><circle cx="25.5" cy="19" r="2.5" fill="currentColor" stroke="none"/>
+                <path d="M15 25h10"/><path d="M3 18v6M37 18v6"/>
+              </svg>
+            </span>
+            <span><strong>Gegen den Bot</strong><small>Drei Stufen, von entspannt bis knallhart</small></span>
+            <svg class="mode-chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3l7 7-7 7"/></svg>
+          </button>
+          <button type="button" id="btnModeLocal" class="mode-tile">
+            <span class="mode-art" aria-hidden="true">
+              <svg viewBox="0 0 40 40">
+                <circle cx="14" cy="20" r="10" fill="#ff4b5c" stroke="#b9182b" stroke-width="2.5"/>
+                <circle cx="26" cy="20" r="10" fill="#ffd23f" stroke="#d49a00" stroke-width="2.5"/>
+                <circle cx="11" cy="16.5" r="3" fill="#fff" opacity=".55"/><circle cx="23" cy="16.5" r="3" fill="#fff" opacity=".6"/>
+              </svg>
+            </span>
+            <span><strong>Zwei Spieler</strong><small>Abwechselnd am selben Gerät</small></span>
+            <svg class="mode-chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Schritt 2 (nur Bot-Modus): Optionen -->
+      <div id="menuBot" class="menu-step" hidden>
+        <span class="bot-badge" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 5v5"/><circle cx="20" cy="4.5" r="1.5" fill="currentColor"/>
+            <rect x="7" y="10" width="26" height="20" rx="6"/>
+            <circle cx="14.5" cy="19" r="2.5" fill="currentColor" stroke="none"/><circle cx="25.5" cy="19" r="2.5" fill="currentColor" stroke="none"/>
+            <path d="M15 25h10"/><path d="M3 18v6M37 18v6"/>
+          </svg>
+        </span>
+        <h2>Gegen den Bot</h2>
+        <p class="menu-sub">Stelle dein Spiel zusammen.</p>
+
+        <fieldset>
+          <legend>Schwierigkeitsgrad</legend>
+          <div class="segmented">
+            <label><input type="radio" name="difficulty" value="easy"><span class="seg"><span class="bars b1" aria-hidden="true"><i></i><i></i><i></i></span>Leicht</span></label>
+            <label><input type="radio" name="difficulty" value="medium" checked><span class="seg"><span class="bars b2" aria-hidden="true"><i></i><i></i><i></i></span>Mittel</span></label>
+            <label><input type="radio" name="difficulty" value="hard"><span class="seg"><span class="bars b3" aria-hidden="true"><i></i><i></i><i></i></span>Schwer</span></label>
+          </div>
+          <p id="difficultyHint" class="hint" aria-live="polite"></p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Wer beginnt?</legend>
+          <div class="segmented">
+            <label><input type="radio" name="starter" value="human" checked><span class="seg seg-row"><span class="disc-icon is-red" aria-hidden="true"></span>Ich</span></label>
+            <label><input type="radio" name="starter" value="bot"><span class="seg seg-row"><span class="disc-icon is-yellow" aria-hidden="true"></span>Der Bot</span></label>
+          </div>
+        </fieldset>
+
+        <div class="menu-buttons">
+          <button type="button" id="btnStartBot" class="btn btn-primary btn-big">
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6 3.5v13l11-6.5z"/></svg>Spiel starten
+          </button>
+          <button type="button" id="btnBotBack" class="btn">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3l-7 7 7 7"/></svg>Zurück
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SPIELBILDSCHIRM ===================== -->
+    <section id="gameScreen" class="screen" hidden>
+      <div class="scoreboard" role="group" aria-label="Punktestand">
+        <div class="score-card" data-player="1">
+          <span class="disc-icon is-red" aria-hidden="true"></span>
+          <span class="score-name"></span>
+          <span class="score-value">0</span>
+        </div>
+        <div class="score-card" data-player="2">
+          <span class="disc-icon is-yellow" aria-hidden="true"></span>
+          <span class="score-name"></span>
+          <span class="score-value">0</span>
+        </div>
+      </div>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+
+      <div id="boardArea" class="board-area" role="group"
+           aria-label="Spielbrett mit 7 Spalten und 6 Reihen. Spalte mit den Pfeiltasten wählen, mit Enter einwerfen.">
+        <!-- Vorschau-Stein oberhalb des Bretts -->
+        <div class="preview-layer" aria-hidden="true">
+          <div id="previewDisc" class="disc preview-disc is-red"></div>
+        </div>
+
+        <!-- Brett: Steine liegen HINTER der Brettfront mit den Löchern -->
+        <div class="board-holder">
+          <div id="discsLayer" class="discs-layer" aria-hidden="true"></div>
+          <div class="board-face" aria-hidden="true"></div>
+          <div id="highlightLayer" class="highlight-layer" aria-hidden="true"></div>
+        </div>
+
+        <!-- Klickbare Spalten (werden per JavaScript erzeugt) -->
+        <div id="columns" class="columns"></div>
+      </div>
+
+      <div class="controls">
+        <button type="button" id="btnNewGame" class="btn btn-primary">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10a6 6 0 1 1-2-4.5"/><path d="M16 3v4h-4"/></svg>Neues Spiel
+        </button>
+        <button type="button" id="btnMenu" class="btn">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h14M3 10h14M3 16h14"/></svg>Zurück zum Menü
+        </button>
+      </div>
+
+      <!-- Unsichtbare Ansage für Screenreader -->
+      <div id="announcer" class="sr-only" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
